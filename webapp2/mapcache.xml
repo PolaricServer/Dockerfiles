@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<mapcache>
+  <!-- 
+  *******************************************************
+    Set up caches here. Files, sqlite, mbtiles, etc.. 
+  ******************************************************* 
+  -->
+
+   <cache name="grunnkart_sqlite" type="sqlite3">
+     <dbfile>/var/lib/polaric/mapcache/maps_grunnkart.db</dbfile>
+   </cache>
+
+   <!-- 
+   **********************************************************************
+     Set up sources here.
+     It is typically an external WMS service. Mapcache supports some
+     other source types like mapserver mapfiles. 
+   ********************************************************************** 
+   -->
+   
+   <source name="kv_grunnkart" type="wms">
+     <getmap>
+       <params>
+         <FORMAT>image/png</FORMAT>
+         <LAYERS>norgeskart_bakgrunn</LAYERS>
+       </params>
+     </getmap>
+     
+     <http>
+       <url>http://opencache.statkart.no/gatekeeper/gk/gk.open?</url>
+     </http>
+   </source>
+   
+ 
+ 
+   <!-- 
+   **********************************************************************
+     Set up grids here.
+     A grid defines map projection, tile size, extent and resolutions.
+   
+     Resolutions must match the resolutions for the OpenLayers client. 
+     If using tiled cache services (e.g. Kartverket) as sources, we 
+     must match their resolutions excactly as well 
+     (see also mapconfig.js).
+   ********************************************************************** 
+   -->
+   <grid name="utm32">
+     <metadata>
+       <title>UTM zone 32 for Norway. Matches Kartverket cache-service.</title>
+     </metadata>
+     
+     <srs>EPSG:32632</srs>
+     <size>256 256</size>
+     <extent> -2000000,3500000,3545984,9045984 </extent>
+     <resolutions>1354.0 677.0 338.5 169.25 84.625 42.3125 21.15625 10.5781248 5.2890624 2.6445312 1.3222656 0.6611328</resolutions>
+   </grid>
+
+   
+   
+   <grid name="utm33">
+     <metadata>
+       <title>UTM zone 33 for Norway.  Matches Kartverket cache-service.</title>
+     </metadata>
+
+     <srs>EPSG:32633</srs>
+     <size>256 256</size>
+     <extent> -2500000.0,3500000.0,3045984.0,9045984.0 </extent>
+     <resolutions>1354.0 677.0 338.5 169.25 84.625 42.3125 21.15625 10.5781248 5.2890624 2.6445312 1.3222656 0.6611328</resolutions>
+   </grid>
+   
+   
+   <!-- 
+   ********************************************************************
+     Set up tilesets here.
+     A tileset defines a source, a cache, a grid and a format, 
+   ******************************************************************** 
+   -->
+
+   <tileset name="kv_grunnkart">
+     <source>kv_grunnkart</source>
+     <cache>grunnkart_sqlite</cache>
+     <grid>utm33</grid>
+     <format>PNG</format>
+
+     <metatile>1 1</metatile>
+     <metabuffer>0</metabuffer>
+     <expires>604800</expires>
+     <auto_expire>5184000</auto_expire>
+   </tileset>
+ 
+ 
+ 
+   <default_format>JPEG</default_format>
+  
+   <service type="wms" enabled="true">
+      <full_wms>assemble</full_wms>
+      <resample_mode>bilinear</resample_mode>
+      <format>JPEG</format>
+      <maxsize>4096</maxsize>
+   </service>
+   
+   <service type="wmts" enabled="true"/>
+   <service type="tms" enabled="true"/>
+
+   <errors>report</errors>
+   <lock_dir>/tmp</lock_dir>
+   <log_level>debug</log_level> 
+</mapcache>
