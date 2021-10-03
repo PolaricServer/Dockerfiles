@@ -13,7 +13,7 @@
  * Default is to use the location of the webapp. 
  */
 // SERVER("https://aprs.no");
-SERVER("http://localhost:8081");
+
 
 /* 
  * WSPREFIX is the url prefix for websocket interface
