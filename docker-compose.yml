@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  webapp2:
+    build: webapp2
+    ports:
+      - "8080:80"
+  aprsd:
+    build: aprsd
+    ports:
+      - "8081:8081"
+
