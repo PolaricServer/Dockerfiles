@@ -12,7 +12,7 @@
  * Uncomment to use aprs.no as a backend. 
  * Default is to use the location of the webapp. 
  */
-// SERVER("https://aprs.no");
+SERVER("http://localhost:8081");
 
 
 /* 
