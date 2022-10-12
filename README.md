@@ -21,3 +21,11 @@ You should configure the apsd with callsign, APRS-IS servers, etc. through the w
 
 The container will put app data /var/lib/polaric in a volume to allow Docker to preserve data between subsequent runs. 
 
+## docker compose
+
+A docker compose file has been added so it should be easier to deploy this solution. 
+To build and deploy the aprsd and webapp2 container:
+
+```sh
+docker compose up
+```
